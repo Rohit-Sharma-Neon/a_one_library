@@ -21,7 +21,7 @@ class StudentListTile extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SvgPicture.asset(BaseAssets.icDummyReadingStudent, width: 80,),
+          SvgPicture.asset(BaseAssets.icDummyReadingStudent, width: 80),
           Container(
             margin: const EdgeInsets.only(left: 10, right: 13),
             height: 50,
@@ -29,7 +29,7 @@ class StudentListTile extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.grey.shade700,
               borderRadius: BorderRadius.circular(5)
-            )
+            ),
           ),
           Expanded(
             child: Column(
@@ -55,7 +55,7 @@ class StudentListTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        BaseText(value: label, fontSize: 12, color: Colors.grey.shade300,),
+        BaseText(value: label, fontSize: 12, color: Colors.grey.shade500,),
         BaseText(value: value, fontSize: 12, color: Colors.grey.shade300,),
       ],
     );
