@@ -1,23 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:scaled_app/scaled_app.dart';
+
+import 'services/firebase_notification_service.dart';
+import 'ui/base_components/base_main_builder.dart';
+import 'utils/base_localization.dart';
 
 void main() {
-  runApp(const MyApp());
+  runAppScaled(const MyApp(), scaleFactor: (deviceSize){
+    const double widthOfDesign = 375;
+    return deviceSize.width / widthOfDesign;
+  });
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseNotificationService().initFirebase();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return GetMaterialApp(
+      title: 'Learning Project',
+      debugShowCheckedModeBanner: false,
+      translations: BaseLocalization(),
+      locale: const Locale('en', 'US'),
+      fallbackLocale: const Locale('en', 'US'),
+      builder: (BuildContext context, Widget? child) {
+        return BaseMainBuilder(context: context, child: child);
+      },
       theme: ThemeData(
-
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Learning Project'),
     );
   }
 }
