@@ -1,0 +1,47 @@
+name: learning_project
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  # Firebase
+  firebase_messaging: ^15.0.4
+  firebase_core: ^3.3.0
+  # Security
+  flutter_jailbreak_detection: ^1.10.0
+  # Animations Packages
+  animate_do: ^3.3.4
+  flutter_staggered_animations: ^1.1.1
+  lottie: ^3.1.2
+  card_loading: ^0.3.2
+  flutter_spinkit: ^5.2.1
+  # Responsiveness
+  scaled_app: ^2.3.0
+  # Other
+  get: ^4.6.6
+  flutter_svg: ^2.0.10+1
+  fluttertoast: ^8.2.8
+  connectivity_plus: ^6.0.5
+  loader_overlay: ^4.0.1
+  image_picker: ^1.1.2
+  image_cropper: ^8.0.2
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+
+  uses-material-design: true
