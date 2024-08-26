@@ -57,7 +57,7 @@ class BaseText extends StatelessWidget {
               fontSize: fontSize ?? 14,
               height: height,
               decoration: (lineThrough??false) ? TextDecoration.lineThrough : null,
-              color: color ?? Colors.black,
+              color: color ?? Colors.white,
               fontWeight: fontWeight ?? FontWeight.w400,
             ),
           ),
