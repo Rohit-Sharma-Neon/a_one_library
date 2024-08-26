@@ -31,14 +31,14 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       bottom: PreferredSize(preferredSize: Size.fromHeight(bottomWidgetHeight??0),
       child: bottomChild ?? const SizedBox.shrink()),
-      leading: FadeInDown(
+      leading: (showBackButton??true) ? FadeInDown(
         duration: const Duration(milliseconds: 400),
         child: GestureDetector(onTap: onBackPressed ?? (){
           triggerHapticFeedback();
           Get.back();
         },child: Icon(Icons.arrow_back_sharp,
           color: contentColor??Colors.white,size: 24)),
-      ),
+      ) : null,
     );
   }
 

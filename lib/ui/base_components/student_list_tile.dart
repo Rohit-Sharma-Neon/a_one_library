@@ -55,8 +55,8 @@ class StudentListTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        BaseText(value: label, fontSize: 12,),
-        BaseText(value: value, fontSize: 12,),
+        BaseText(value: label, fontSize: 12, color: Colors.grey.shade300,),
+        BaseText(value: value, fontSize: 12, color: Colors.grey.shade300,),
       ],
     );
   }

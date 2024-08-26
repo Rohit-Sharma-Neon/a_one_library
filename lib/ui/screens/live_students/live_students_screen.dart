@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:learning_project/ui/base_components/animated_list_builder.dart';
 import 'package:learning_project/ui/base_components/base_app_bar.dart';
-import 'package:learning_project/ui/base_components/base_text.dart';
 import 'package:learning_project/ui/base_components/student_list_tile.dart';
-import 'package:learning_project/utils/base_assets.dart';
+import 'package:learning_project/ui/screens/add_students/add_student_screen.dart';
 import 'package:learning_project/utils/base_colors.dart';
-import 'package:learning_project/utils/base_variables.dart';
+import 'package:learning_project/utils/base_functions.dart';
 
 class LiveStudentsScreen extends StatefulWidget {
   const LiveStudentsScreen({super.key});
@@ -21,7 +21,7 @@ class _LiveStudentsScreenState extends State<LiveStudentsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BaseAppBar(title: "Live Students"),
+      appBar: const BaseAppBar(title: "Live Students", showBackButton: false),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection("a_one_students").snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -29,7 +29,7 @@ class _LiveStudentsScreenState extends State<LiveStudentsScreen> {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.data!.docs.isEmpty) {
-            return const Text("No Live Students Added\nPlease Add");
+            return const Text("No Live Students Found\nPlease Add");
           }
           return AnimationLimiter(
             child: ListView.builder(
@@ -50,6 +50,21 @@ class _LiveStudentsScreenState extends State<LiveStudentsScreen> {
             ),
           );
         },
+      ),
+      floatingActionButton: GestureDetector(
+        onTap: (){
+          triggerHapticFeedback();
+          Get.to(const AddStudentScreen());
+        },
+        child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: BaseColors.grey800,
+            borderRadius: BorderRadius.circular(10)
+          ),
+          child: Icon(Icons.add, color: Colors.grey.shade400,),
+        ),
       ),
     );
   }
