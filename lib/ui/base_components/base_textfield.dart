@@ -45,7 +45,7 @@ class BaseTextField extends StatelessWidget {
             visible: labelText.isNotEmpty,
             child: BaseText(
               value: labelText,
-              color: BaseColors.primaryTextColor,
+              color: Colors.grey.shade500,
               fontSize: 12,
             ),
           ),
@@ -68,7 +68,7 @@ class BaseTextField extends StatelessWidget {
             onChanged: onChanged,
             cursorColor: BaseColors.secondaryColor,
             maxLength: maxLength??200,
-            style: TextStyle(color: txtColor ?? Colors.black, fontSize: 15),
+            style: TextStyle(color: txtColor ?? Colors.grey.shade300, fontSize: 15),
             decoration: InputDecoration(
               contentPadding: contentPadding ?? EdgeInsets.only(top: 6, bottom: 6, left: prefixIcon != null ? 10 : 0, right: 10.0),
               isDense: true,
@@ -81,7 +81,7 @@ class BaseTextField extends StatelessWidget {
               semanticCounterText: "",
               suffixIconConstraints: const BoxConstraints(maxHeight: 45),
               prefixIconConstraints: const BoxConstraints(maxHeight: 45),
-              hintStyle: TextStyle(color: hintTextColor ?? BaseColors.primaryTextColor, fontSize: hintTxtSize ?? 15),
+              hintStyle: TextStyle(color: hintTextColor ?? Colors.grey.shade500, fontSize: hintTxtSize ?? 15),
               filled: false,
               fillColor: Colors.transparent,
               suffixIcon: suffixIcon,

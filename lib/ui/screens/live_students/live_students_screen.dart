@@ -10,6 +10,8 @@ import 'package:learning_project/ui/screens/add_students/add_student_screen.dart
 import 'package:learning_project/utils/base_colors.dart';
 import 'package:learning_project/utils/base_functions.dart';
 
+import 'controller/live_student_controller.dart';
+
 class LiveStudentsScreen extends StatefulWidget {
   const LiveStudentsScreen({super.key});
 
@@ -18,6 +20,7 @@ class LiveStudentsScreen extends StatefulWidget {
 }
 
 class _LiveStudentsScreenState extends State<LiveStudentsScreen> {
+  LiveStudentController controller = Get.put(LiveStudentController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +40,19 @@ class _LiveStudentsScreenState extends State<LiveStudentsScreen> {
               itemBuilder: (context, index){
                 return AnimatedListBuilder(
                   index: index,
-                  child: StudentListTile(
-                    studentName: snapshot.data?.docs[index]['student_name'],
-                    studentSeatNo: snapshot.data?.docs[index]['allot_seat_number'],
-                    studentMobile: snapshot.data?.docs[index]['student_mobile'],
-                    dateOfJoining: snapshot.data?.docs[index]['student_date_of_joining'],
-                    initialPayment: snapshot.data?.docs[index]['initial_payment'],
-                    address: snapshot.data?.docs[index]['student_address'],
+                  child: GestureDetector(
+                    onLongPress: () async {
+                      String studentId = snapshot.data?.docs[index].reference.id??"";
+                      controller.deleteLiveStudent(seatNumber: studentId);
+                    },
+                    child: StudentListTile(
+                      studentName: snapshot.data?.docs[index]['student_name'],
+                      studentSeatNo: snapshot.data?.docs[index]['allot_seat_number'],
+                      studentMobile: snapshot.data?.docs[index]['student_mobile'],
+                      dateOfJoining: snapshot.data?.docs[index]['student_date_of_joining'],
+                      initialPayment: snapshot.data?.docs[index]['initial_payment'],
+                      address: snapshot.data?.docs[index]['student_address'],
+                    ),
                   ),
                 );
               },

@@ -16,4 +16,5 @@ class BaseColors{
   static Color grey100 = Colors.grey.shade100;
   static Color cardColor = grey900;
   static Color primaryTextColor = Colors.grey.shade300;
+  static Color primaryButtonColor = Colors.grey.shade900;
 }
