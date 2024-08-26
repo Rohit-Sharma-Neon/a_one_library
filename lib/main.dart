@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
       builder: (BuildContext context, Widget? child) {
         return BaseMainBuilder(context: context, child: child);
       },
-      theme: ThemeData(
+      darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: BaseColors.primaryColor),
         primaryColor: BaseColors.primaryColor,
         useMaterial3: true,

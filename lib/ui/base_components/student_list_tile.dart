@@ -27,7 +27,7 @@ class StudentListTile extends StatelessWidget {
             height: 50,
             width: 1.5,
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Colors.grey.shade700,
               borderRadius: BorderRadius.circular(5)
             )
           ),

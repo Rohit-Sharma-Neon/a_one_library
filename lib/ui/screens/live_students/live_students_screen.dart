@@ -28,6 +28,7 @@ class _LiveStudentsScreenState extends State<LiveStudentsScreen> {
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection("a_one_students").snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          controller.allottedSeatNumber.clear();
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -36,8 +37,12 @@ class _LiveStudentsScreenState extends State<LiveStudentsScreen> {
           }
           return AnimationLimiter(
             child: ListView.builder(
+              padding: const EdgeInsets.only(bottom: 20),
               itemCount: snapshot.data?.docs.length??0,
               itemBuilder: (context, index){
+                if ((snapshot.data?.docs[index]['allot_seat_number']??"") != "") {
+                  controller.allottedSeatNumber.add(int.parse(snapshot.data?.docs[index]['allot_seat_number']));
+                }
                 return AnimatedListBuilder(
                   index: index,
                   child: GestureDetector(

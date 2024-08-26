@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -12,7 +11,7 @@ import 'base_colors.dart';
 import 'base_variables.dart';
 
 triggerHapticFeedback(){
-  Haptics.vibrate(HapticsType.medium);
+  Haptics.vibrate(HapticsType.light);
 }
 
 Future<File?> showMediaPicker({bool? isCropEnabled}) async {
