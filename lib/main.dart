@@ -5,6 +5,7 @@ import 'package:scaled_app/scaled_app.dart';
 import 'services/firebase_notification_service.dart';
 import 'ui/base_components/base_main_builder.dart';
 import 'ui/screens/live_students/live_students_screen.dart';
+import 'ui/screens/splash/splash_screen.dart';
 import 'utils/base_colors.dart';
 import 'utils/base_localization.dart';
 
@@ -26,8 +27,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await FirebaseNotificationService().initFirebase();
+    });
     super.initState();
-    FirebaseNotificationService().initFirebase();
   }
 
   @override
@@ -49,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: BaseColors.scaffoldColor,
         pageTransitionsTheme: const PageTransitionsTheme(builders: {TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(), TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder()}),
       ),
-      home: const LiveStudentsScreen(),
+      home: const SplashScreen(),
     );
   }
 }

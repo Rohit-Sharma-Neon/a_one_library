@@ -21,7 +21,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: FadeInDown(
           duration: const Duration(milliseconds: 400),
-          child: BaseText(value: title??"", color: (showDrawerIcon??false) ? Colors.white : contentColor, fontSize: (showDrawerIcon??false) ? titleSize??18 : titleSize, fontWeight: (showDrawerIcon??false) ? FontWeight.w500 : fontWeight),
+          child: BaseText(value: title??"", color: (showDrawerIcon??false) ? Colors.white : contentColor, fontSize: (showDrawerIcon??false) ? titleSize??18 : titleSize??18, fontWeight: (showDrawerIcon??false) ? FontWeight.w500 : fontWeight),
       ),
       backgroundColor: Colors.transparent,
       titleSpacing: (showDrawerIcon??false) ? 0 : titleSpacing,
@@ -37,7 +37,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
           triggerHapticFeedback();
           Get.back();
         },child: Icon(Icons.arrow_back_sharp,
-          color: contentColor??Colors.white,size: 30)),
+          color: contentColor??Colors.white,size: 24)),
       ),
     );
   }
