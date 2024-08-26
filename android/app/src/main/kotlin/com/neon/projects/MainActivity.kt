@@ -1,4 +1,4 @@
-package com.aonelibrary.learning_project
+package com.neon.projects
 
 import io.flutter.embedding.android.FlutterActivity
 
