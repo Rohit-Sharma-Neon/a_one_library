@@ -14,7 +14,8 @@ import 'package:learning_project/utils/validators.dart';
 import 'controller/add_student_controller.dart';
 
 class AddStudentScreen extends StatefulWidget {
-  const AddStudentScreen({super.key});
+  final String? referenceId, studentName, studentSeatNo, studentMobile, dateOfJoining, initialPayment, address;
+  const AddStudentScreen({super.key, this.referenceId, this.studentName, this.studentSeatNo, this.studentMobile, this.dateOfJoining, this.initialPayment, this.address, });
 
   @override
   State<AddStudentScreen> createState() => _AddStudentScreenState();
@@ -22,10 +23,25 @@ class AddStudentScreen extends StatefulWidget {
 
 class _AddStudentScreenState extends State<AddStudentScreen> {
   AddStudentController controller = Get.put(AddStudentController());
+
+  @override
+  void initState() {
+    super.initState();
+    controller.setData(
+      referenceId: widget.referenceId??"",
+      studentName: widget.studentName??"",
+      studentSeatNo: widget.studentSeatNo??"0",
+      studentMobile: widget.studentMobile??"",
+      dateOfJoining: widget.dateOfJoining??"",
+      initialPayment: widget.initialPayment??"",
+      address: widget.address??"",
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BaseAppBar(title: "Add Student"),
+      appBar: BaseAppBar(title: "${(widget.referenceId??"").isEmpty ? "Add" : "Edit"} Student"),
       body: SingleChildScrollView(
         child: Form(
           key: controller.formKey,
@@ -33,7 +49,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
             children: [
               BaseTextField(
                 topMargin: 10,
-                controller: controller.studentName,
+                controller: controller.studentNameStr,
                 labelText: 'Student Name',
                 hintText: 'Enter Student Name Here',
                 textInputType: TextInputType.name,
@@ -47,7 +63,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
               ),
               BaseTextField(
                 topMargin: 20,
-                controller: controller.address,
+                controller: controller.addressStr,
                 labelText: 'Student Full Address',
                 hintText: 'Enter Student Full Address Here',
                 textInputType: TextInputType.streetAddress,
@@ -61,7 +77,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
               ),
               BaseTextField(
                 topMargin: 20,
-                controller: controller.studentMobile,
+                controller: controller.studentMobileStr,
                 labelText: 'Student Mobile',
                 hintText: 'Enter Student Mobile Here',
                 textInputType: TextInputType.phone,
@@ -74,7 +90,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
               ),
               BaseTextField(
                 topMargin: 20,
-                controller: controller.dateOfJoining,
+                controller: controller.dateOfJoiningStr,
                 readOnly: true,
                 labelText: 'Date Of Joining',
                 hintText: 'Select Date Of Joining',
@@ -119,7 +135,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                     },
                   ).then((val){
                     if(val != null){
-                      controller.dateOfJoining.text = DateFormat("dd/MM/yyyy").format(val);
+                      controller.dateOfJoiningStr.text = DateFormat("dd/MM/yyyy").format(val);
                     }
                   });
                 },
@@ -127,7 +143,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
               BaseTextField(
                 topMargin: 20,
                 bottomMargin: 20,
-                controller: controller.initialPayment,
+                controller: controller.initialPaymentStr,
                 labelText: 'Initial Payment (Optional)',
                 hintText: 'Enter Initial Payment',
                 textInputType: TextInputType.number,
@@ -211,12 +227,16 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
         ),
       ),
       bottomNavigationBar: BaseButton(
-        title: "Add Student",
+        title: "${(widget.referenceId??"").isEmpty ? "Add" : "Edit"} Student",
         rightMargin: horizontalScreenPadding,
         leftMargin: horizontalScreenPadding,
         bottomMargin: horizontalScreenPadding,
         onPressed: (){
-          controller.addStudent();
+          if ((widget.referenceId??"").isEmpty) {
+            controller.addStudent();
+          }else{
+            controller.editStudent(referenceId: widget.referenceId??"");
+          }
         },
       ),
     );

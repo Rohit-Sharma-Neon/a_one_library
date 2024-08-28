@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: BaseColors.primaryColor),
         primaryColor: BaseColors.primaryColor,
         useMaterial3: true,
-        scaffoldBackgroundColor: BaseColors.scaffoldColor,
+        scaffoldBackgroundColor: BaseColors.cardColor,
         pageTransitionsTheme: const PageTransitionsTheme(builders: {TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(), TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder()}),
       ),
       home: const SplashScreen(),

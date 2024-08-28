@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -259,4 +260,8 @@ showSnackBar({bool? isSuccess, String? title, String? subtitle, BuildContext? co
   //   ..hideCurrentSnackBar()
   //   ..showSnackBar(snackBar);
 
+}
+
+callOnNumber({required String mobile}) async {
+  await FlutterPhoneDirectCaller.callNumber(mobile);
 }
