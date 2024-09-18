@@ -265,3 +265,10 @@ showSnackBar({bool? isSuccess, String? title, String? subtitle, BuildContext? co
 callOnNumber({required String mobile}) async {
   await FlutterPhoneDirectCaller.callNumber(mobile);
 }
+
+int daysBetween({required DateTime from, required DateTime to}) {
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
+}
+

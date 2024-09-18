@@ -2,6 +2,7 @@ import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:learning_project/utils/base_assets.dart';
 import 'package:learning_project/utils/base_colors.dart';
 import 'package:learning_project/utils/base_functions.dart';
@@ -16,14 +17,13 @@ class StudentListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int completedDays = daysBetween(from: DateFormat("dd/MM/yyyy").parse(dateOfJoining), to: DateTime.now());
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: Slidable(
         startActionPane: ActionPane(
           motion: const DrawerMotion(),
-          dismissible: DismissiblePane(onDismissed: () {
-            print("Hello");
-          }),
+          dragDismissible: false,
           extentRatio: 0.4,
           children: [
             SlidableAction(
@@ -43,6 +43,7 @@ class StudentListTile extends StatelessWidget {
         ),
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
+          dragDismissible: false,
           dismissible: DismissiblePane(onDismissed: () {
             print("Hello");
           }),
@@ -74,41 +75,69 @@ class StudentListTile extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.only(right: horizontalScreenPadding, left: horizontalScreenPadding, top: 6),
-          child: ClayContainer(
-            color: BaseColors.cardColor,
-            borderRadius: 10,
-            depth: 20,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Row(
-                children: [
-                  SvgPicture.asset(BaseAssets.icDummyReadingStudent, width: 80),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10, right: 13),
-                    height: 50,
-                    width: 1.5,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade700,
-                      borderRadius: BorderRadius.circular(5)
-                    ),
+          child: Stack(
+            alignment: Alignment.topLeft,
+            children: [
+              ClayContainer(
+                color: completedDays >= 30 ? Colors.grey.shade800 : BaseColors.cardColor,
+                borderRadius: 10,
+                depth: completedDays >= 30 ? 0 : 20,
+                spread: completedDays >= 30 ? 0 : null,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(BaseAssets.icDummyReadingStudent, width: 80),
+                      Container(
+                        margin: const EdgeInsets.only(left: 10, right: 13),
+                        height: 50,
+                        width: 1.5,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade700,
+                          borderRadius: BorderRadius.circular(5)
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            detailsWidget(label: 'Name: ', value: studentName),
+                            detailsWidget(label: 'Mobile: ', value: studentMobile),
+                            detailsWidget(label: 'Date Of Joining: ', value: dateOfJoining),
+                            detailsWidget(label: 'Remaining Days: ', value: (30 - completedDays).toString()),
+                            detailsWidget(label: 'Initial Payment: ', value: initialPayment),
+                            detailsWidget(label: 'Address: ', value: address),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        detailsWidget(label: 'Name: ', value: studentName),
-                        detailsWidget(label: 'Allotted Seat No: ', value: studentSeatNo),
-                        detailsWidget(label: 'Mobile: ', value: studentMobile),
-                        detailsWidget(label: 'Date Of Joining: ', value: dateOfJoining),
-                        detailsWidget(label: 'Initial Payment: ', value: initialPayment),
-                        detailsWidget(label: 'Address: ', value: address),
-                      ],
-                    ),
-                  )
-                ],
+                ),
               ),
-            ),
+              Container(
+                padding: const EdgeInsets.only(right: 7, bottom: 2),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade900,
+                  borderRadius: const BorderRadius.only(bottomRight: Radius.circular(10), topLeft: Radius.circular(10)),
+                ),
+                child: BaseText(value: studentSeatNo, height: 0, leftMargin: 6.5, topMargin: 3, fontSize: 12,),
+              ),
+              Visibility(
+                visible: completedDays >= 28,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    padding: const EdgeInsets.only(right: 7, bottom: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade900,
+                      borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                    ),
+                    child: BaseText(value: completedDays >= 30 ? "Please Renew" : "Renew Soon", height: 0, leftMargin: 6.5, topMargin: 3, fontSize: 12,),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:learning_project/ui/screens/live_students/controller/live_student_controller.dart';
 
-class AddStudentController extends GetxController{
+class AddStudentController extends GetxController {
   TextEditingController studentNameStr = TextEditingController();
   TextEditingController addressStr = TextEditingController();
   TextEditingController studentMobileStr = TextEditingController();
@@ -20,19 +20,33 @@ class AddStudentController extends GetxController{
     super.onInit();
   }
 
-  setData({required String referenceId, required String studentName, required String studentSeatNo, required String studentMobile,  required String dateOfJoining, required String initialPayment, required String address }){
-    if(referenceId.isNotEmpty){
+  setData(
+      {required String referenceId,
+      required String studentName,
+      required String studentSeatNo,
+      required String studentMobile,
+      required String dateOfJoining,
+      required String initialPayment,
+      required String address}) {
+    if (referenceId.isNotEmpty) {
       studentNameStr.text = studentName;
       addressStr.text = address;
       studentMobileStr.text = studentMobile;
       dateOfJoiningStr.text = dateOfJoining;
       initialPaymentStr.text = initialPayment;
-      selectedSeatNumber = int.parse(studentSeatNo??"0");
+      selectedSeatNumber = int.parse(studentSeatNo ?? "0");
+    } else {
+      studentNameStr.clear();
+      addressStr.clear();
+      studentMobileStr.clear();
+      dateOfJoiningStr.text = DateFormat("dd/MM/yyyy").format(DateTime.now());
+      initialPaymentStr.text = "600";
+      selectedSeatNumber = 0;
     }
   }
 
-  addStudent(){
-    if (formKey.currentState?.validate()??false) {
+  addStudent() {
+    if (formKey.currentState?.validate() ?? false) {
       FirebaseFirestore.instance.collection("a_one_students").add(
         {
           "student_name": studentNameStr.text.trim(),
@@ -42,34 +56,35 @@ class AddStudentController extends GetxController{
           "initial_payment": initialPaymentStr.text.trim(),
           "allot_seat_number": selectedSeatNumber.toString(),
         },
-      ).then((val){
+      ).then((val) {
         Get.back();
       });
     }
   }
 
-  editStudent({required String referenceId}){
-    if (formKey.currentState?.validate()??false) {
+  editStudent({required String referenceId}) {
+    if (formKey.currentState?.validate() ?? false) {
       if (referenceId.isNotEmpty) {
-        FirebaseFirestore.instance.collection("a_one_students").doc(referenceId).update(
-            {
-              "student_name": studentNameStr.text.trim(),
-              "student_address": addressStr.text.trim(),
-              "student_mobile": studentMobileStr.text.trim(),
-              "student_date_of_joining": dateOfJoiningStr.text.trim(),
-              "initial_payment": initialPaymentStr.text.trim(),
-              "allot_seat_number": selectedSeatNumber.toString(),
-            }
-        ).then((val){
+        FirebaseFirestore.instance
+            .collection("a_one_students")
+            .doc(referenceId)
+            .update({
+          "student_name": studentNameStr.text.trim(),
+          "student_address": addressStr.text.trim(),
+          "student_mobile": studentMobileStr.text.trim(),
+          "student_date_of_joining": dateOfJoiningStr.text.trim(),
+          "initial_payment": initialPaymentStr.text.trim(),
+          "allot_seat_number": selectedSeatNumber.toString(),
+        }).then((val) {
           Get.back();
         });
       }
     }
   }
 
-  initAvailableSeats(){
-    for(int i=1; i<101; i+=1){
-      if(!(Get.find<LiveStudentController>().allottedSeatNumber.contains(i))){
+  initAvailableSeats() {
+    for (int i = 1; i < 101; i += 1) {
+      if (!(Get.find<LiveStudentController>().allottedSeatNumber.contains(i))) {
         availableSeatNumbers.add(i);
       }
     }

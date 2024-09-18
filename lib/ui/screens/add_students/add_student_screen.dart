@@ -7,6 +7,7 @@ import 'package:learning_project/ui/base_components/base_app_bar.dart';
 import 'package:learning_project/ui/base_components/base_button.dart';
 import 'package:learning_project/ui/base_components/base_text.dart';
 import 'package:learning_project/ui/base_components/base_textfield.dart';
+import 'package:learning_project/ui/screens/live_students/controller/live_student_controller.dart';
 import 'package:learning_project/utils/base_functions.dart';
 import 'package:learning_project/utils/base_variables.dart';
 import 'package:learning_project/utils/validators.dart';
@@ -27,6 +28,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
   @override
   void initState() {
     super.initState();
+    Get.find<LiveStudentController>().initAllottedSeat();
     controller.setData(
       referenceId: widget.referenceId??"",
       studentName: widget.studentName??"",
